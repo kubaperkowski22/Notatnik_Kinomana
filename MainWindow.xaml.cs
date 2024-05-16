@@ -1,4 +1,5 @@
-﻿using Notatnik_Kinomana_v2.ViewModels;
+﻿using MahApps.Metro.Controls;
+using Notatnik_Kinomana_v2.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +16,7 @@ namespace Notatnik_Kinomana_v2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class AdonisWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindowVM ViewModel
         {
@@ -29,11 +30,17 @@ namespace Notatnik_Kinomana_v2
             }
         }
         private MainWindowVM _viewModel;
-        public AdonisWindow()
+        public MainWindow()
         {
-            ViewModel = new MainWindowVM();
+            InitializeComponent();
 
+            ViewModel = new MainWindowVM();
             this.DataContext = ViewModel;
+        }
+
+        public void ShowMessage()
+        {
+
         }
     }
 }

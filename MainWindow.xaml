@@ -1,4 +1,4 @@
-﻿<adonisControls:AdonisWindow x:Class="Notatnik_Kinomana_v2.MainWindow"
+﻿<Controls:MetroWindow x:Class="Notatnik_Kinomana_v2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,64 +6,60 @@
         xmlns:local="clr-namespace:Notatnik_Kinomana_v2"
         xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
         xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels"  
+        xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowVM}"
-        TitleBarBackground="#333333"
-        TitleBarForeground="White"
         Background="#F0F0F0"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        BorderBrush="#333333"
+        WindowTitleBrush="#333333"
+        WindowStartupLocation="CenterScreen"
+        Title="Notatnik Kinomana" Height="450" Width="800">
 
-        <Menu>
-            <MenuItem Header="Plik">
-                <MenuItem Header="Otwórz">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="FolderOpen"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Zapisz">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="Save"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Eksportuj do Excela">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="FolderOpen"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Statystyki">
-                <MenuItem Header="Otwórz statystyki">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="AreaChart"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Zapisz statystyki">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="Download"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+    <DockPanel>
+        <DockPanel.Resources>
+            <DataTemplate x:Key="MenuItemTemplate">
+                <Grid Height="48" Background="Black">
+                    <cal:Action.Target>
+                        <cal:ActionMessage MethodName="AbrirPDF">
+                            <cal:Parameter Value="{Binding CNPJ}"/>
+                        </cal:ActionMessage>
+                    </cal:Action.Target>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Foreground="BlanchedAlmond" Text="{Binding Glyph}"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" Foreground="White" Text="{Binding Label}"/>
+                </Grid>
+            </DataTemplate>
+        </DockPanel.Resources>
 
-        <Grid Grid.Row="1">
-            <DockPanel>
-                <TabControl>
-                    <TabItem Header="Dodaj film"/>
-                    <TabItem Header="Zaplanuj premierę"/>
-                    <TabItem Header="Dodane filmy"/>
-                    <TabItem Header="Dodaj film"/>
-                </TabControl>
-            </DockPanel>
+        <Controls:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}">
+            <Controls:HamburgerMenu.ItemsSource>
+                <Controls:HamburgerMenuItemCollection>
+                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe948;" Label="Dodaj film" Tag="AddMovie"/>
+                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe173;" Label="Przeglądaj filmy" Tag="OpenMoviesList"/>
+                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe163;" Label="Zaplanuj seans/premierę" Tag="AddPremiereDate"/>
+                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe904;" Label="Statystyki" Tag="ShowStatistics"/>
+                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe115;" Label="Ustawienia" Tag="OpenSettings"/>
+                </Controls:HamburgerMenuItemCollection>
+            </Controls:HamburgerMenu.ItemsSource>
 
+            <Controls:HamburgerMenu.Content>
+                <DockPanel>
+                    <Border Background="#FF444444" DockPanel.Dock="Top">
+                        <TextBlock x:Name="Header" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White" Text="{Binding ActiveItem.DisplayName}" />
+                    </Border>
+                    <ScrollViewer Grid.Row="1" CanContentScroll="True" IsDeferredScrollingEnabled="False">
+                        <Controls:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItem" Content="{Binding ActiveItem}"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Controls:HamburgerMenu.Content>
+        </Controls:HamburgerMenu>
+    </DockPanel>
 
-
-        </Grid>
-    </Grid>
-</adonisControls:AdonisWindow>
+</Controls:MetroWindow>
