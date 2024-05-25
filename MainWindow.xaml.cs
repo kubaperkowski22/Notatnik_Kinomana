@@ -38,9 +38,20 @@ namespace Notatnik_Kinomana_v2
             this.DataContext = ViewModel;
         }
 
-        public void ShowMessage()
+        private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
         {
+            // set the content
+            this.HamburgerMenuControl.Content = e.ClickedItem;
+            // close the pane
+            this.HamburgerMenuControl.IsPaneOpen = false;
+        }
 
+        private void HamburgerMenuControl_OptionsItemClick(object sender, ItemClickEventArgs e)
+        {
+            // set the content
+            this.HamburgerMenuControl.Content = e.ClickedItem;
+            // close the pane
+            this.HamburgerMenuControl.IsPaneOpen = false;
         }
     }
 }

@@ -19,47 +19,152 @@
         WindowStartupLocation="CenterScreen"
         Title="Notatnik Kinomana" Height="450" Width="800">
 
-    <DockPanel>
-        <DockPanel.Resources>
-            <DataTemplate x:Key="MenuItemTemplate">
-                <Grid Height="48" Background="Black">
-                    <cal:Action.Target>
-                        <cal:ActionMessage MethodName="AbrirPDF">
-                            <cal:Parameter Value="{Binding CNPJ}"/>
-                        </cal:ActionMessage>
-                    </cal:Action.Target>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type Controls:HamburgerMenuIconItem}">
+                <Grid Height="48">
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="48" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets" Foreground="BlanchedAlmond" Text="{Binding Glyph}"/>
-                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" Foreground="White" Text="{Binding Label}"/>
+                    
+                    <ContentControl Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ContentControl>
+                    
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"
+                               Text="{Binding Label}"/>
+                    
                 </Grid>
             </DataTemplate>
-        </DockPanel.Resources>
+            
+            <DataTemplate x:Key="OptionsMenuItemTemplate" DataType="{x:Type Controls:HamburgerMenuIconItem}">
+                <Grid Height="48">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <ContentControl Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ContentControl>
+                    
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"
+                               Text="{Binding Label}"/>
+                    
+                </Grid>
+            </DataTemplate>
+        </Grid.Resources>
 
-        <Controls:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}">
+        <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                Foreground="White"
+                                PaneBackground="#FF444444"
+                                IsPaneOpen="False"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
+                                DisplayMode="CompactInline"
+                                ItemClick="HamburgerMenuControl_OnItemClick"
+                                OptionsItemClick="HamburgerMenuControl_OptionsItemClick">
+
             <Controls:HamburgerMenu.ItemsSource>
                 <Controls:HamburgerMenuItemCollection>
-                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe948;" Label="Dodaj film" Tag="AddMovie"/>
-                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe173;" Label="Przeglądaj filmy" Tag="OpenMoviesList"/>
-                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe163;" Label="Zaplanuj seans/premierę" Tag="AddPremiereDate"/>
-                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe904;" Label="Statystyki" Tag="ShowStatistics"/>
-                    <Controls:HamburgerMenuGlyphItem Glyph="&#xe115;" Label="Ustawienia" Tag="OpenSettings"/>
+                    
+                    <Controls:HamburgerMenuIconItem Label="Dodaj film">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <fa:ImageAwesome Icon="Plus"/>
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <Grid x:Name="AddMovieView"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+
+                    <Controls:HamburgerMenuIconItem Label="Przeglądaj filmy">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <fa:ImageAwesome Icon="Search"/>
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <Grid x:Name="BrowseMoviesView"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+
+                    <Controls:HamburgerMenuIconItem Label="Zaplanuj seans/premierę">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <fa:ImageAwesome Icon="Calendar"/>
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <Grid x:Name="PlanPremiereView"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+
+                    <Controls:HamburgerMenuIconItem Label="Statystyki">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <fa:ImageAwesome Icon="LineChart"/>
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <Grid x:Name="StatisticsView"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+
                 </Controls:HamburgerMenuItemCollection>
             </Controls:HamburgerMenu.ItemsSource>
 
-            <Controls:HamburgerMenu.Content>
-                <DockPanel>
-                    <Border Background="#FF444444" DockPanel.Dock="Top">
-                        <TextBlock x:Name="Header" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White" Text="{Binding ActiveItem.DisplayName}" />
-                    </Border>
-                    <ScrollViewer Grid.Row="1" CanContentScroll="True" IsDeferredScrollingEnabled="False">
-                        <Controls:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItem" Content="{Binding ActiveItem}"/>
-                    </ScrollViewer>
-                </DockPanel>
-            </Controls:HamburgerMenu.Content>
+            
+            <Controls:HamburgerMenu.OptionsItemsSource>
+                <Controls:HamburgerMenuItemCollection>
+                    
+                    <Controls:HamburgerMenuIconItem Label="Ustawienia">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <fa:ImageAwesome Icon="Gear"/>
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <Grid x:Name="SettingsView"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+                    
+                </Controls:HamburgerMenuItemCollection>
+            </Controls:HamburgerMenu.OptionsItemsSource>
+
+            <Controls:HamburgerMenu.ContentTemplate>
+                <DataTemplate DataType="{x:Type Controls:HamburgerMenuItem}">
+                    <Grid x:Name="TheContentGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border>
+                            <ContentControl x:Name="TheContent"
+                                            Grid.Row="1"
+                                            Focusable="False"
+                                            Foreground="Black"
+                                            Content="{Binding Tag}"/>
+                        </Border>
+
+                    </Grid>
+
+                </DataTemplate>
+            </Controls:HamburgerMenu.ContentTemplate>
         </Controls:HamburgerMenu>
-    </DockPanel>
+
+
+
+
+    </Grid>
 
 </Controls:MetroWindow>

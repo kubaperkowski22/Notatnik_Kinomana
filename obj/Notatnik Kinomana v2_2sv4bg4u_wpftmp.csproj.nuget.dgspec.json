@@ -1,0 +1,100 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj",
+        "projectName": "Notatnik Kinomana v2",
+        "projectPath": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj",
+        "packagesPath": "C:\\Users\\kubap\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\kubap\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "AdonisUI": {
+              "target": "Package",
+              "version": "[1.17.1, )"
+            },
+            "AdonisUI.ClassicTheme": {
+              "target": "Package",
+              "version": "[1.17.1, )"
+            },
+            "Caliburn.Micro": {
+              "target": "Package",
+              "version": "[4.0.212, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.2, )"
+            },
+            "FontAwesome.WPF": {
+              "target": "Package",
+              "version": "[4.7.0.9, )"
+            },
+            "MahApps.Metro": {
+              "target": "Package",
+              "version": "[2.4.10, )"
+            },
+            "MahApps.Metro.IconPacks": {
+              "target": "Package",
+              "version": "[4.11.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

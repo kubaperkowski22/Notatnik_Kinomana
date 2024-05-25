@@ -94,3 +94,8 @@ C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\Mah
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\MahApps.Metro.IconPacks.WeatherIcons.dll
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\MahApps.Metro.IconPacks.Zondicons.dll
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\MahApps.Metro.IconPacks.dll
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\Caliburn.Micro.Platform.Core.dll
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\Caliburn.Micro.Platform.dll
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\Caliburn.Micro.Core.dll
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Views\AddMoviePage.g.cs
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Views\AddMoviePage.baml
