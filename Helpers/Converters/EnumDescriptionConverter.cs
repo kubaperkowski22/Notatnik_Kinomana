@@ -17,7 +17,8 @@ namespace Notatnik_Kinomana_v2.Helpers.Converters
             if (value == null) return null;
 
             Type type = value.GetType();
-            if (!type.IsEnum) return value.ToString();
+            if (!type.IsEnum)
+                return value.ToString();
 
             FieldInfo fieldInfo = type.GetField(value.ToString());
             DescriptionAttribute attribute = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false)

@@ -100,3 +100,5 @@ C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\bin\Debug\net8.0-windows\Cal
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Views\AddMoviePage.g.cs
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Views\AddMoviePage.baml
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Controls\RatingControl.g.cs
+C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\obj\Debug\net8.0-windows\Controls\RatingControl.baml

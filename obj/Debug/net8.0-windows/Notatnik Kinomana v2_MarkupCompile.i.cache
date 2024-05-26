@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\kubap\OneDrive\Pulpit\Notatnik_Kinomana_v2\App.xaml
-2-433669255
+3483892540
 1-748279874
-111533514335
+13-347319618
 24375353670
-MainWindow.xaml;Views\AddMoviePage.xaml;
+Controls\RatingControl.xaml;MainWindow.xaml;Views\AddMoviePage.xaml;
 
-False
+True
 

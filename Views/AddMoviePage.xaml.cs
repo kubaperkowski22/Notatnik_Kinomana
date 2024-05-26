@@ -2,7 +2,9 @@
 using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +22,7 @@ namespace Notatnik_Kinomana_v2.Views
     /// <summary>
     /// Logika interakcji dla klasy AddMoviePage.xaml
     /// </summary>
-    public partial class AddMoviePage : UserControl
+    public partial class AddMoviePage : UserControl, INotifyPropertyChanged
     {
         public AddMoviePageVM ViewModel
         {
@@ -41,6 +43,27 @@ namespace Notatnik_Kinomana_v2.Views
 
             ViewModel = new AddMoviePageVM();
             this.DataContext = ViewModel;
+        }
+
+        private void RatingControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.Movie.Rating = RatingControl.Rating;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Title_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(ViewModel.IsTitleEmpty));
+        }
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

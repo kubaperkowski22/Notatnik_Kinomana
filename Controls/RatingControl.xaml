@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Notatnik_Kinomana_v2.Controls.RatingControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Notatnik_Kinomana_v2.Controls"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      mc:Ignorable="d" 
+      d:DesignHeight="50" d:DesignWidth="250">
+        
+    <StackPanel Orientation="Horizontal">
+        <WrapPanel Margin="0 10">
+             <fa:FontAwesome Name="Star1"  Icon="Star" Foreground="Gold" Margin="0 0 8 0"
+                        MouseEnter="Star_MouseEnter"
+                        MouseLeftButtonUp="Star_MouseLeftButtonUp"/>
+             <fa:FontAwesome Name="Star2"  Icon="Star" Foreground="Gray"
+                        MouseEnter="Star_MouseEnter"
+                        MouseLeftButtonUp="Star_MouseLeftButtonUp"/>
+             <fa:FontAwesome Name="Star3"  Icon="Star" Foreground="Gray" Margin="8 0"
+                        MouseEnter="Star_MouseEnter"
+                        MouseLeftButtonUp="Star_MouseLeftButtonUp"/>
+             <fa:FontAwesome Name="Star4"  Icon="Star" Foreground="Gray"
+                        MouseEnter="Star_MouseEnter"
+                        MouseLeftButtonUp="Star_MouseLeftButtonUp"/>
+             <fa:FontAwesome Name="Star5"  Icon="Star" Foreground="Gray" Margin="8 0 15 0"
+                        MouseEnter="Star_MouseEnter"
+                        MouseLeftButtonUp="Star_MouseLeftButtonUp"/>
+            
+        </WrapPanel>
+
+        <Label Name="RatingLabel"/>
+        <Label Content="/ 5"/>
+
+
+    </StackPanel>
+    
+</UserControl>

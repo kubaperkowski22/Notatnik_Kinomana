@@ -6,11 +6,30 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Notatnik_Kinomana_v2.Helpers;
+using Notatnik_Kinomana_v2.Models;
 
 namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
 {
     public class AddMoviePageVM : INotifyPropertyChanged
     {
+        public Movie Movie
+        {
+            get
+            {
+                return _movie;
+            }
+            set
+            {
+                _movie = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Movie));
+                OnPropertyChanged(nameof(IsTitleEmpty));
+                OnPropertyChanged(nameof(IsCategorySelected));
+            }
+        }
+        private Movie _movie;
+
         public string Title
         {
             get
@@ -22,8 +41,8 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
                 _title = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IsTitleEmpty));
                 OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(IsTitleEmpty));
             }
         }
         private string _title;
@@ -45,6 +64,56 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         }
         private EMovieCategory _category;
 
+        public string? Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                _description = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+        private string _description;
+
+        public string? Review
+        {
+            get
+            {
+                return _review;
+            }
+            set
+            {
+                _review = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Review));
+            }
+        }
+        private string _review;
+
+        public int Rating
+        {
+            get
+            {
+                return _rating;
+            }
+            set
+            {
+                _rating = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Rating));
+            }
+        }
+        private int _rating;
+
+
+
         public bool IsTitleEmpty
         {
             get
@@ -59,14 +128,14 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         {
             get
             {
-                if (Category == EMovieCategory.None)
+                if (Category == EMovieCategory.Brak)
                     return true;
                 return false;
             }
         }
         public AddMoviePageVM()
         {
-            Title = string.Empty;
+            Movie = new Movie();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
