@@ -40,10 +40,19 @@ namespace Notatnik_Kinomana_v2
 
         private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            // set the content
-            this.HamburgerMenuControl.Content = e.ClickedItem;
-            // close the pane
-            this.HamburgerMenuControl.IsPaneOpen = false;
+            var menuItem = e.ClickedItem as HamburgerMenuIconItem;
+            if(menuItem is not null)
+            {
+                switch(menuItem.Tag.ToString())
+                {
+                    case "AddMovieView":
+                        HamburgerMenuControl.Content = new Views.AddMoviePage();
+                        this.HamburgerMenuControl.IsPaneOpen = false;
+                        break;
+                    default:
+                        return;
+                }
+            }
         }
 
         private void HamburgerMenuControl_OptionsItemClick(object sender, ItemClickEventArgs e)

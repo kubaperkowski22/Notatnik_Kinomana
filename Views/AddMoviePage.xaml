@@ -1,23 +1,82 @@
-﻿<Page x:Class="Notatnik_Kinomana_v2.Views.AddMoviePage"
+﻿<UserControl x:Class="Notatnik_Kinomana_v2.Views.AddMoviePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Notatnik_Kinomana_v2.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddMoviePage">
+      xmlns:conv="clr-namespace:Notatnik_Kinomana_v2.Helpers.Converters"
+      xmlns:helpers="clr-namespace:Notatnik_Kinomana_v2.Helpers"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d"
+      xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels.ViewsVM"
+      d:DataContext="{d:DesignInstance Type=vm:AddMoviePageVM}"
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="MovieCategoryEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="helpers:EMovieCategory" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </UserControl.Resources>
 
     <Grid>
-        <Border Background="Black" Width="150"
-                Height="80">
-            <TextBlock Text="hejka"
-                   Foreground="White"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="48">
+        <StackPanel>
+            <controls:MetroHeader Foreground="Black"
+                                  FontWeight="Bold"
+                                  FontSize="24"
+                                  Margin="15">
+                <controls:MetroHeader.Header>
+                    <TextBlock Text="Tytuł"/>
+                </controls:MetroHeader.Header>
 
-            </TextBlock>
-        </Border>
+                <WrapPanel>
+                    <TextBox Width="450"
+                         Height="30"
+                         FontSize="13"
+                         FontWeight="Medium"
+                         HorizontalAlignment="Left"
+                         controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.Watermark="Tytuł"
+                             Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <fa:FontAwesome Icon="ExclamationCircle"
+                                    VerticalAlignment="Center"
+                                    Margin="8 0"
+                                    ToolTip="To pole nie może być puste!"
+                                    Foreground="Red"
+                                    Visibility="{Binding IsTitleEmpty, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+                </WrapPanel>
+            </controls:MetroHeader>
+
+            <controls:MetroHeader Foreground="Black"
+                      FontWeight="Bold"
+                      FontSize="24"
+                      Margin="15 0">
+                <controls:MetroHeader.Header>
+                    <TextBlock Text="Kategoria"/>
+                </controls:MetroHeader.Header>
+
+                <WrapPanel>
+                    <ComboBox Width="200"
+                              ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"
+                              SelectedItem="{Binding Category, Mode=TwoWay}">
+
+                    </ComboBox>
+
+                    <fa:FontAwesome Icon="ExclamationCircle"
+                        VerticalAlignment="Center"
+                        Margin="8 0"
+                        ToolTip="To pole nie może być puste!"
+                        Foreground="Red"
+                        Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reversed, UpdateSourceTrigger=PropertyChanged}"/>
+
+                </WrapPanel>
+            </controls:MetroHeader>
+        </StackPanel>
     </Grid>
-</Page>
+</UserControl>

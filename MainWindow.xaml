@@ -4,13 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notatnik_Kinomana_v2"
-        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
-        xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels"
-        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:views="clr-namespace:Notatnik_Kinomana_v2.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowVM}"
         Background="#F0F0F0"
@@ -84,41 +82,33 @@
 
             <Controls:HamburgerMenu.ItemsSource>
                 <Controls:HamburgerMenuItemCollection>
-                    
-                    <Controls:HamburgerMenuIconItem Label="Dodaj film">
+
+                    <Controls:HamburgerMenuIconItem Label="Dodaj film"
+                                                    Tag="AddMovieView">
                         <Controls:HamburgerMenuIconItem.Icon>
                             <fa:ImageAwesome Icon="Plus"/>
                         </Controls:HamburgerMenuIconItem.Icon>
-                        <Controls:HamburgerMenuIconItem.Tag>
-                            <Grid x:Name="AddMovieView"/>
-                        </Controls:HamburgerMenuIconItem.Tag>
                     </Controls:HamburgerMenuIconItem>
 
-                    <Controls:HamburgerMenuIconItem Label="Przeglądaj filmy">
+                    <Controls:HamburgerMenuIconItem Label="Przeglądaj filmy"
+                                                    Tag="BrowseMoviesView">
                         <Controls:HamburgerMenuIconItem.Icon>
-                            <fa:ImageAwesome Icon="Search"/>
+                            <fa:ImageAwesome Icon="ListUl"/>
                         </Controls:HamburgerMenuIconItem.Icon>
-                        <Controls:HamburgerMenuIconItem.Tag>
-                            <Grid x:Name="BrowseMoviesView"/>
-                        </Controls:HamburgerMenuIconItem.Tag>
                     </Controls:HamburgerMenuIconItem>
 
-                    <Controls:HamburgerMenuIconItem Label="Zaplanuj seans/premierę">
+                    <Controls:HamburgerMenuIconItem Label="Zaplanuj seans/premierę"
+                                                    Tag="PlanPremiereView">
                         <Controls:HamburgerMenuIconItem.Icon>
                             <fa:ImageAwesome Icon="Calendar"/>
                         </Controls:HamburgerMenuIconItem.Icon>
-                        <Controls:HamburgerMenuIconItem.Tag>
-                            <Grid x:Name="PlanPremiereView"/>
-                        </Controls:HamburgerMenuIconItem.Tag>
                     </Controls:HamburgerMenuIconItem>
 
-                    <Controls:HamburgerMenuIconItem Label="Statystyki">
+                    <Controls:HamburgerMenuIconItem Label="Statystyki"
+                                                    Tag="StatisticsView">
                         <Controls:HamburgerMenuIconItem.Icon>
                             <fa:ImageAwesome Icon="LineChart"/>
                         </Controls:HamburgerMenuIconItem.Icon>
-                        <Controls:HamburgerMenuIconItem.Tag>
-                            <Grid x:Name="StatisticsView"/>
-                        </Controls:HamburgerMenuIconItem.Tag>
                     </Controls:HamburgerMenuIconItem>
 
                 </Controls:HamburgerMenuItemCollection>
@@ -128,38 +118,20 @@
             <Controls:HamburgerMenu.OptionsItemsSource>
                 <Controls:HamburgerMenuItemCollection>
                     
-                    <Controls:HamburgerMenuIconItem Label="Ustawienia">
+                    <Controls:HamburgerMenuIconItem Label="Ustawienia"
+                                                    Tag="SettingsView">
                         <Controls:HamburgerMenuIconItem.Icon>
                             <fa:ImageAwesome Icon="Gear"/>
                         </Controls:HamburgerMenuIconItem.Icon>
-                        <Controls:HamburgerMenuIconItem.Tag>
-                            <Grid x:Name="SettingsView"/>
-                        </Controls:HamburgerMenuIconItem.Tag>
                     </Controls:HamburgerMenuIconItem>
                     
                 </Controls:HamburgerMenuItemCollection>
             </Controls:HamburgerMenu.OptionsItemsSource>
 
-            <Controls:HamburgerMenu.ContentTemplate>
-                <DataTemplate DataType="{x:Type Controls:HamburgerMenuItem}">
-                    <Grid x:Name="TheContentGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="48"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Border>
-                            <ContentControl x:Name="TheContent"
-                                            Grid.Row="1"
-                                            Focusable="False"
-                                            Foreground="Black"
-                                            Content="{Binding Tag}"/>
-                        </Border>
-
-                    </Grid>
-
-                </DataTemplate>
-            </Controls:HamburgerMenu.ContentTemplate>
+            <Controls:HamburgerMenu.Content>
+                <ContentControl x:Name="HamburgerMenuContentControl"/>
+            </Controls:HamburgerMenu.Content>
+            
         </Controls:HamburgerMenu>
 
 

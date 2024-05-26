@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Notatnik_Kinomana_v2.ViewModels;
+using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,27 @@ namespace Notatnik_Kinomana_v2.Views
     /// <summary>
     /// Logika interakcji dla klasy AddMoviePage.xaml
     /// </summary>
-    public partial class AddMoviePage : Page
+    public partial class AddMoviePage : UserControl
     {
+        public AddMoviePageVM ViewModel
+        {
+            get
+            {
+                return _viewModel;
+            }
+            set
+            {
+                _viewModel = value;
+            }
+        }
+        private AddMoviePageVM _viewModel;
+
         public AddMoviePage()
         {
             InitializeComponent();
+
+            ViewModel = new AddMoviePageVM();
+            this.DataContext = ViewModel;
         }
     }
 }
