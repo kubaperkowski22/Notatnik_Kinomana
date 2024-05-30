@@ -192,6 +192,10 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
             {
                 if (IsEditMode && (IsCategoryNoneSelected || IsTitleEmpty))
                     return false;
+
+                if (Movies.Count == 0)
+                    return false;
+
                 return true;
             }
         }
