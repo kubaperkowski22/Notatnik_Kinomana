@@ -30,11 +30,25 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="MoviesDataGrid"
-                  ItemsSource="{Binding Movies}"
+        <StackPanel Width="auto">
+            <TextBox Name="SearchTB"
+                     Height="30"
+                     Width="205"
+                     FontSize="13"
+                     FontWeight="Medium"
+                     HorizontalAlignment="Left"
+                     controls:TextBoxHelper.ClearTextButton="True"
+                     controls:TextBoxHelper.Watermark="Szukaj tytuł"
+                     Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                
+            </TextBox>
+            
+            <DataGrid x:Name="MoviesDataGrid"
+                  ItemsSource="{Binding SearchResult}"
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.IsVirtualizingWhenGrouping="True"
                   VirtualizingPanel.VirtualizationMode="Standard"
@@ -46,37 +60,44 @@
                   IsReadOnly="True"
                   CanUserResizeColumns="True"
                   SelectionChanged="MoviesList_SelectionChanged"
+                  SizeChanged="MoviesDataGrid_SizeChanged"
                   SelectedItem="{Binding SelectedMovie, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}"/>
-                <DataGridTextColumn Header="Kategoria" Binding="{Binding Category, Converter={StaticResource EnumDescriptionConverter}}"/>
-                <DataGridTextColumn Header="Ocena" Binding="{Binding Rating}"/>
-            </DataGrid.Columns>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Kategoria" Binding="{Binding Category, Converter={StaticResource EnumDescriptionConverter}}"/>
+                    <DataGridTextColumn Header="Ocena" Binding="{Binding Rating}"/>
+                </DataGrid.Columns>
 
-        </DataGrid>
+            </DataGrid>
+        </StackPanel>
 
+        <GridSplitter Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Width="3"/>
 
-        <ScrollViewer Width="600"
-                          Grid.Column="1">
+        <ScrollViewer Width="auto"
+                      Grid.Column="2">
 
 
             <StackPanel Orientation="Vertical"
-                                HorizontalAlignment="Left"
-                                CanVerticallyScroll="True">
+                        HorizontalAlignment="Center"
+                        CanVerticallyScroll="True"
+                        Width="550">
 
                 <WrapPanel VerticalAlignment="Top"
                            HorizontalAlignment="Left"
-                           Margin="15 10 15 5"
-                           Grid.Row="0">
+                           Margin="15 10 15 5">
 
                     <Label Content="Tryb edycji"
                            VerticalAlignment="Center"/>
 
                     <controls:ToggleSwitch Name="EditModeTSW"
-                                               OnContent=""
-                                               OffContent=""
-                                               Toggled="EditMode_Toggled"/>
+                                           OnContent=""
+                                           OffContent=""
+                                           Toggled="EditMode_Toggled"
+                                           IsEnabled="{Binding CanExitEditMode, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Border BorderBrush="red"
                             Width="152"
@@ -107,8 +128,10 @@
                                        Text="Tytuł"/>
 
                     <WrapPanel>
-                        <Label FontSize="20"
-                                   Content="{Binding SelectedMovie.Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        <TextBlock FontSize="20"
+                                   TextWrapping="Wrap"
+                                   Foreground="Black"
+                                   Text="{Binding SelectedMovie.Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                    Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
 
                         <WrapPanel Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
@@ -126,6 +149,7 @@
                             <fa:FontAwesome Icon="ExclamationCircle"
                                             VerticalAlignment="Center"
                                             Margin="8 0"
+                                            FontSize="20"
                                             ToolTip="To pole nie może być puste!"
                                             Foreground="Red"
                                             Visibility="{Binding IsTitleEmpty, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
@@ -160,9 +184,10 @@
                             <fa:FontAwesome Icon="ExclamationCircle"
                                                 VerticalAlignment="Center"
                                                 Margin="8 0"
+                                                FontSize="20"
                                                 ToolTip="To pole nie może być puste!"
                                                 Foreground="Red"
-                                                Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Visibility="{Binding IsCategoryNoneSelected, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
                         </WrapPanel>
                     </WrapPanel>
@@ -178,9 +203,11 @@
                                    Text="Opis"/>
 
                     <WrapPanel>
-                        <Label FontSize="13"
-                                   Content="{Binding SelectedMovie.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                   Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
+                        <TextBlock FontSize="13"
+                               TextWrapping="Wrap"
+                               Foreground="Black"
+                               Text="{Binding SelectedMovie.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
 
                         <TextBox Width="450"
                                      Height="150"
@@ -207,8 +234,10 @@
                                    Text="Recenzja"/>
 
                     <WrapPanel>
-                        <Label FontSize="13"
-                                   Content="{Binding SelectedMovie.Review, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        <TextBlock FontSize="13"
+                                   Foreground="Black"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding SelectedMovie.Review, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                    Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
 
                         <TextBox Width="450"
@@ -236,7 +265,8 @@
                                Text="Ocena"/>
 
                     <ctrl:RatingControl x:Name="RatingControl"
-                                        MouseLeftButtonUp="RatingControl_MouseLeftButtonUp"/>
+                                        MouseLeftButtonUp="RatingControl_MouseLeftButtonUp"
+                                        FontSize="20"/>
 
                 </StackPanel>
 

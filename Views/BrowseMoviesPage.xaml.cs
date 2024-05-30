@@ -65,6 +65,13 @@ namespace Notatnik_Kinomana_v2.Views
 
         private void RatingControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if(EditModeTSW.IsEnabled)
+            {
+                e.Handled = true;
+                RatingControl.Rating = (int)ViewModel.SelectedMovie.Rating;
+                return;
+            }
+
             ViewModel.SelectedMovie.Rating = RatingControl.Rating;
         }
 
@@ -73,5 +80,9 @@ namespace Notatnik_Kinomana_v2.Views
             ViewModel.DeleteMovie();
         }
 
+        private void MoviesDataGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SearchTB.Width = MoviesDataGrid.ActualWidth;
+        }
     }
 }

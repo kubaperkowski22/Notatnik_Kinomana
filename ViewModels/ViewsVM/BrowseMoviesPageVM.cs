@@ -15,7 +15,42 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
     public class BrowseMoviesPageVM : INotifyPropertyChanged
     {
         public AllMovies AllMovies { get; set; }
-        public ObservableCollection<Movie> Movies { get; set; }
+        public ObservableCollection<Movie> Movies
+        {
+            get
+            {
+                return _movies;
+            }
+            set
+            {
+                _movies = value;
+            }
+        }
+        private ObservableCollection<Movie> _movies;
+
+        public ObservableCollection<Movie> SearchResult
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(SearchedText))
+                    return Movies;
+
+                _searchResult.Clear();
+
+                foreach (Movie movie in Movies)
+                {
+                    if (movie.Title.ToLower().Contains(SearchedText.ToLower()))
+                        _searchResult.Add(movie);
+                }
+
+                return _searchResult;
+            }
+            set
+            {
+                _searchResult = value;
+            }
+        }
+        private ObservableCollection<Movie> _searchResult;
 
         public Movie SelectedMovie
         {
@@ -25,15 +60,15 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
             }
             set
             {
-                if (_selectedMovie is null) return;
-
                 _selectedMovie = value;
+
+                if (_selectedMovie == null) return;
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MovieTitle));
                 OnPropertyChanged(nameof(IsTitleEmpty));
                 OnPropertyChanged(nameof(MovieCategory));
-                OnPropertyChanged(nameof(IsCategorySelected));
+                OnPropertyChanged(nameof(IsCategoryNoneSelected));
                 OnPropertyChanged(nameof(IsMovieSelected));
 
             }
@@ -59,6 +94,7 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
                 OnPropertyChanged(nameof(MovieTitle));
                 OnPropertyChanged(nameof(IsTitleEmpty));
                 OnPropertyChanged(nameof(SelectedMovie));
+                OnPropertyChanged(nameof(CanExitEditMode));
             }
         }
         private string _title;
@@ -80,11 +116,31 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(MovieCategory));
-                OnPropertyChanged(nameof(IsCategorySelected));
+                OnPropertyChanged(nameof(IsCategoryNoneSelected));
                 OnPropertyChanged(nameof(SelectedMovie));
+                OnPropertyChanged(nameof(CanExitEditMode));
             }
         }
         private EMovieCategory _category;
+
+        public string SearchedText
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_searchedText))
+                    return string.Empty;
+
+                return _searchedText;
+            }
+            set
+            {
+                _searchedText = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SearchResult));
+            }
+        }
+        private string _searchedText;
 
         public bool IsEditMode
         {
@@ -110,7 +166,7 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
                 return false;
             }
         }
-        public bool IsCategorySelected
+        public bool IsCategoryNoneSelected
         {
             get
             {
@@ -130,11 +186,22 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
             }
         }
 
+        public bool CanExitEditMode
+        {
+            get
+            {
+                if (IsEditMode && (IsCategoryNoneSelected || IsTitleEmpty))
+                    return false;
+                return true;
+            }
+        }
+
         public BrowseMoviesPageVM(AllMovies movies)
         {
             AllMovies = movies;
             Movies = movies.Movies;
             SelectedMovie = null;
+            _searchResult = new ObservableCollection<Movie>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -151,7 +218,7 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
             OnPropertyChanged(nameof(MovieTitle));
             OnPropertyChanged(nameof(MovieCategory));
             OnPropertyChanged(nameof(IsTitleEmpty));
-            OnPropertyChanged(nameof(IsCategorySelected));
+            OnPropertyChanged(nameof(IsCategoryNoneSelected));
             OnPropertyChanged(nameof(IsMovieSelected));
         }
 
@@ -162,16 +229,19 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
 
             Movies.Remove(SelectedMovie);
 
+            OnPropertyChanged(nameof(_movies));
+
             MessageBox.Show("Pomyślnie usunięto film.", "Sukces!", MessageBoxButton.OK, MessageBoxImage.Information);
 
             SelectedMovie = null;
 
             OnPropertyChanged(nameof(Movies));
+            OnPropertyChanged(nameof(SearchResult));
             OnPropertyChanged(nameof(SelectedMovie));
             OnPropertyChanged(nameof(MovieTitle));
             OnPropertyChanged(nameof(MovieCategory));
             OnPropertyChanged(nameof(IsTitleEmpty));
-            OnPropertyChanged(nameof(IsCategorySelected));
+            OnPropertyChanged(nameof(IsCategoryNoneSelected));
             OnPropertyChanged(nameof(IsMovieSelected));
         }
     }
