@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ex9OemlCFuL3hzlSxrSOVZD9mQwdtCIUaOZQdFsdKy5FlTnMFuY8+nSsxf/y6aPqVJ7jK/QqzbMokCu4hxCpAA==",
+  "dgSpecHash": "a9vLAxlUNKM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj",
+  "projectFilePath": "C:\\Users\\kubap\\Desktop\\Notatnik_Kinomana\\Notatnik Kinomana v2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kubap\\.nuget\\packages\\adonisui\\1.17.1\\adonisui.1.17.1.nupkg.sha512",
     "C:\\Users\\kubap\\.nuget\\packages\\adonisui.classictheme\\1.17.1\\adonisui.classictheme.1.17.1.nupkg.sha512",

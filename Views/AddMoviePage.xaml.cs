@@ -1,7 +1,9 @@
-﻿using Notatnik_Kinomana_v2.ViewModels;
+﻿using Notatnik_Kinomana_v2.Models;
+using Notatnik_Kinomana_v2.ViewModels;
 using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -37,12 +39,16 @@ namespace Notatnik_Kinomana_v2.Views
         }
         private AddMoviePageVM _viewModel;
 
-        public AddMoviePage()
+        public AddMoviePage(ObservableCollection<Movie> movies)
         {
             InitializeComponent();
 
-            ViewModel = new AddMoviePageVM();
+            ViewModel = new AddMoviePageVM(movies);
             this.DataContext = ViewModel;
+        }
+        public AddMoviePage()
+        {
+            InitializeComponent();
         }
 
         private void RatingControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -52,12 +58,15 @@ namespace Notatnik_Kinomana_v2.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.AddMovieToAllMoviesList();
 
-        }
+            ViewModel.Movie = new Movie();
 
-        private void Title_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(ViewModel.IsTitleEmpty));
+            TitleTB.Clear();
+            CategoryCB.SelectedIndex = 0;
+            DescriptionTB.Clear();
+            ReviewTB.Clear();
+            RatingControl.SetDefault();
         }
         
         public event PropertyChangedEventHandler PropertyChanged;

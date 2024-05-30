@@ -21,7 +21,8 @@
                 <x:Type TypeName="helpers:EMovieCategory" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <conv:BoolToIsEnabledConverter x:Key="BoolToIsEnabledConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -37,14 +38,15 @@
                     </controls:MetroHeader.Header>
 
                     <WrapPanel>
-                        <TextBox Width="450"
+                        <TextBox Name="TitleTB"
+                             Width="450"
                              Height="30"
                              FontSize="13"
                              FontWeight="Medium"
                              HorizontalAlignment="Left"
                              controls:TextBoxHelper.ClearTextButton="True"
                              controls:TextBoxHelper.Watermark="Tytuł"
-                             Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding MovieTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <fa:FontAwesome Icon="ExclamationCircle"
                                     VerticalAlignment="Center"
@@ -65,18 +67,19 @@
                     </controls:MetroHeader.Header>
 
                     <WrapPanel>
-                        <ComboBox Width="200"
+                        <ComboBox Name="CategoryCB"
+                              Width="200"
                               ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"
-                              SelectedItem="{Binding Category, Mode=TwoWay}">
+                              SelectedItem="{Binding MovieCategory, Mode=TwoWay}">
 
                         </ComboBox>
 
                         <fa:FontAwesome Icon="ExclamationCircle"
-                        VerticalAlignment="Center"
-                        Margin="8 0"
-                        ToolTip="To pole nie może być puste!"
-                        Foreground="Red"
-                        Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reversed, UpdateSourceTrigger=PropertyChanged}"/>
+                                        VerticalAlignment="Center"
+                                        Margin="8 0"
+                                        ToolTip="To pole nie może być puste!"
+                                        Foreground="Red"
+                                        Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reversed, UpdateSourceTrigger=PropertyChanged}"/>
 
                     </WrapPanel>
                 </controls:MetroHeader>
@@ -90,7 +93,8 @@
                     </controls:MetroHeader.Header>
 
                     <WrapPanel>
-                        <TextBox Width="450"
+                        <TextBox Name="DescriptionTB"
+                             Width="450"
                              Height="150"
                              FontSize="13"
                              FontWeight="Medium"
@@ -99,7 +103,7 @@
                              controls:TextBoxHelper.Watermark="Opis"
                              TextWrapping="Wrap"
                              VerticalContentAlignment="Top"
-                             Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Movie.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     </WrapPanel>
                 </controls:MetroHeader>
@@ -113,7 +117,7 @@
                     </controls:MetroHeader.Header>
 
                     <WrapPanel>
-                        <TextBox Width="450"
+                        <TextBox Name="ReviewTB" Width="450"
                              Height="150"
                              FontSize="13"
                              FontWeight="Medium"
@@ -122,7 +126,7 @@
                              controls:TextBoxHelper.Watermark="Recenzja"
                              TextWrapping="Wrap"
                              VerticalContentAlignment="Top"
-                             Text="{Binding Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                             Text="{Binding Movie.Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
 
                     </WrapPanel>
                 </controls:MetroHeader>
@@ -145,7 +149,8 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Margin="15"
-                        Content="Zapisz"
+                        Content="Zapisz film"
+                        IsEnabled="{Binding IsSaveBtnEnabled, Converter={StaticResource BoolToIsEnabledConverter}, UpdateSourceTrigger=PropertyChanged}"
                         Click="SaveButton_Click"/>
                     
             </StackPanel>

@@ -43,15 +43,15 @@
                     
                 </Grid>
             </DataTemplate>
-            
+
             <DataTemplate x:Key="OptionsMenuItemTemplate" DataType="{x:Type Controls:HamburgerMenuIconItem}">
                 <Grid Height="48">
-                    
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    
+
                     <ContentControl Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Rectangle Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Rectangle.Fill>
@@ -59,13 +59,13 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </ContentControl>
-                    
+
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Foreground="White"
                                Text="{Binding Label}"/>
-                    
+
                 </Grid>
             </DataTemplate>
         </Grid.Resources>
@@ -114,28 +114,25 @@
                 </Controls:HamburgerMenuItemCollection>
             </Controls:HamburgerMenu.ItemsSource>
 
-            
+
             <Controls:HamburgerMenu.OptionsItemsSource>
                 <Controls:HamburgerMenuItemCollection>
-                    
+
                     <Controls:HamburgerMenuIconItem Label="Ustawienia"
                                                     Tag="SettingsView">
                         <Controls:HamburgerMenuIconItem.Icon>
                             <fa:ImageAwesome Icon="Gear"/>
                         </Controls:HamburgerMenuIconItem.Icon>
                     </Controls:HamburgerMenuIconItem>
-                    
+
                 </Controls:HamburgerMenuItemCollection>
             </Controls:HamburgerMenu.OptionsItemsSource>
 
             <Controls:HamburgerMenu.Content>
                 <ContentControl x:Name="HamburgerMenuContentControl"/>
             </Controls:HamburgerMenu.Content>
-            
+
         </Controls:HamburgerMenu>
-
-
-
 
     </Grid>
 

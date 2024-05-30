@@ -1,4 +1,5 @@
-﻿using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
+﻿using Notatnik_Kinomana_v2.Models;
+using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,9 +31,41 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private AddMoviePageVM _addMoviePageVM;
 
+        public BrowseMoviesPageVM BrowseMoviesPageVM
+        {
+            get
+            {
+                return _browseMoviePageVM;
+            }
+            set
+            {
+                _browseMoviePageVM = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(AddMoviePageVM));
+            }
+        }
+        private BrowseMoviesPageVM _browseMoviePageVM;
+
+        public AllMovies AllMovies
+        {
+            get
+            {
+                return _allMovies;
+            }
+            set
+            {
+                _allMovies = value;
+            }
+        }
+        private AllMovies _allMovies;
+
         public MainWindowVM()
         {
-            AddMoviePageVM = new AddMoviePageVM();
+            AllMovies = new AllMovies();
+            AddMoviePageVM = new AddMoviePageVM(AllMovies.Movies);
+            BrowseMoviesPageVM = new BrowseMoviesPageVM(AllMovies);
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

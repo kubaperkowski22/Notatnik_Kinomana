@@ -13,6 +13,9 @@
     <Compile Update="Views\AddMoviePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\BrowseMoviesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\RatingControl.xaml">
@@ -22,6 +25,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AddMoviePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BrowseMoviesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

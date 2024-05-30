@@ -75,7 +75,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private string _review;
 
-        public int Rating
+        public int? Rating
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Notatnik_Kinomana_v2.Models
             }
             set
             {
-                _rating = value;
+                _rating = (int)value;
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Rating));
@@ -98,6 +98,17 @@ namespace Notatnik_Kinomana_v2.Models
             Description = string.Empty;
             Review = string.Empty;
             Rating = 1;
+        }
+        public Movie(string title, EMovieCategory category, string description, string review, int? rate)
+        {
+            Title = title;
+            Category = category;
+            if(description is null) Description = string.Empty;
+            else Description = description;
+            if(review is null) Review = string.Empty;
+            else Review = review;
+            if (rate is null) Rating = 1;
+            else Rating = rate;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

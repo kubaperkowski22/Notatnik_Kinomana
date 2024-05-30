@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Caliburn.Micro;
 using Notatnik_Kinomana_v2.Helpers;
 using Notatnik_Kinomana_v2.Models;
 
@@ -30,95 +33,49 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         }
         private Movie _movie;
 
-        public string Title
+        public string MovieTitle
         {
             get
             {
-                return _title;
+                return Movie.Title;
             }
             set
             {
-                _title = value;
+                Movie.Title = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(MovieTitle));
                 OnPropertyChanged(nameof(IsTitleEmpty));
+                OnPropertyChanged(nameof(IsSaveBtnEnabled));
             }
         }
         private string _title;
 
-        public EMovieCategory Category
+        public EMovieCategory MovieCategory
         {
             get
             {
-                return _category;
+                return Movie.Category;
             }
             set
             {
-                _category = value;
+                Movie.Category = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Category));
+                OnPropertyChanged(nameof(MovieCategory));
                 OnPropertyChanged(nameof(IsCategorySelected));
+                OnPropertyChanged(nameof(IsSaveBtnEnabled));
             }
         }
         private EMovieCategory _category;
 
-        public string? Description
-        {
-            get
-            {
-                return _description;
-            }
-            set
-            {
-                _description = value;
-
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Description));
-            }
-        }
-        private string _description;
-
-        public string? Review
-        {
-            get
-            {
-                return _review;
-            }
-            set
-            {
-                _review = value;
-
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Review));
-            }
-        }
-        private string _review;
-
-        public int Rating
-        {
-            get
-            {
-                return _rating;
-            }
-            set
-            {
-                _rating = value;
-
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Rating));
-            }
-        }
-        private int _rating;
-
-
+        public ObservableCollection<Movie> Movies { get; set; }
 
         public bool IsTitleEmpty
         {
             get
             {
-                if (string.IsNullOrEmpty(Title))
+                if (string.IsNullOrEmpty(MovieTitle))
                     return true;
                 return false;
             }
@@ -128,13 +85,24 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         {
             get
             {
-                if (Category == EMovieCategory.Brak)
+                if (MovieCategory == EMovieCategory.Brak)
                     return true;
                 return false;
             }
         }
-        public AddMoviePageVM()
+
+        public bool IsSaveBtnEnabled
         {
+            get
+            {
+                if (string.IsNullOrEmpty(MovieTitle) && MovieCategory == EMovieCategory.Brak)
+                    return false;
+                return true;
+            }
+        }
+        public AddMoviePageVM(ObservableCollection<Movie> allMovies)
+        {
+            Movies = allMovies;
             Movie = new Movie();
         }
 
@@ -142,6 +110,13 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AddMovieToAllMoviesList()
+        {
+            Movies.Add(new Movie(Movie.Title, Movie.Category, Movie.Description, Movie.Review, Movie.Rating));
+
+            MessageBox.Show("Pomyślnie dodano nowy film.", "Sukces!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

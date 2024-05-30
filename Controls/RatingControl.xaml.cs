@@ -29,7 +29,24 @@ namespace Notatnik_Kinomana_v2.Controls
             RatingLabel.Content = "1";
         }
 
-        public int Rating {  get; set; }
+        public int Rating
+        {
+            get
+            {
+                if (_rating < 1 || _rating > 5)
+                    return 1;
+
+                return _rating;
+            }
+            set
+            {
+                _rating = value;
+
+                RatingLabel.Content = _rating.ToString();
+                SetGold(_rating);
+            }
+        }
+        private int _rating;
 
         private void Star_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -162,6 +179,16 @@ namespace Notatnik_Kinomana_v2.Controls
                     Rating = 5;
                     break;
             }
+        }
+
+        public void SetDefault()
+        {
+            RatingLabel.Content = "1";
+
+            Star2.Foreground = Brushes.Gray;
+            Star3.Foreground = Brushes.Gray;
+            Star4.Foreground = Brushes.Gray;
+            Star5.Foreground = Brushes.Gray;
         }
     }
 }

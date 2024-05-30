@@ -2484,11 +2484,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj",
+      "projectUniqueName": "C:\\Users\\kubap\\Desktop\\Notatnik_Kinomana\\Notatnik Kinomana v2.csproj",
       "projectName": "Notatnik Kinomana v2",
-      "projectPath": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\Notatnik Kinomana v2.csproj",
+      "projectPath": "C:\\Users\\kubap\\Desktop\\Notatnik_Kinomana\\Notatnik Kinomana v2.csproj",
       "packagesPath": "C:\\Users\\kubap\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kubap\\OneDrive\\Pulpit\\Notatnik_Kinomana_v2\\obj\\",
+      "outputPath": "C:\\Users\\kubap\\Desktop\\Notatnik_Kinomana\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kubap\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2499,6 +2499,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2511,6 +2512,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2569,7 +2575,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

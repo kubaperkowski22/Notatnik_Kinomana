@@ -1,0 +1,248 @@
+﻿<UserControl x:Class="Notatnik_Kinomana_v2.Views.BrowseMoviesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Notatnik_Kinomana_v2.Views"
+      xmlns:conv="clr-namespace:Notatnik_Kinomana_v2.Helpers.Converters"
+      xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels.ViewsVM"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:helpers="clr-namespace:Notatnik_Kinomana_v2.Helpers"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:ctrl="clr-namespace:Notatnik_Kinomana_v2.Controls"
+      xmlns:views="clr-namespace:Notatnik_Kinomana_v2.Views"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance Type=vm:BrowseMoviesPageVM}"
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="MovieCategoryEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="helpers:EMovieCategory" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <conv:BoolToIsEnabledConverter x:Key="BoolToIsEnabledConverter"/>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="MoviesDataGrid"
+                  ItemsSource="{Binding Movies}"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                  VirtualizingPanel.VirtualizationMode="Standard"
+                  ScrollViewer.IsDeferredScrollingEnabled="True"
+                  VerticalAlignment="Stretch"
+                  AutoGenerateColumns="False"
+                  RowHeight="15"
+                  Width="auto"
+                  IsReadOnly="True"
+                  CanUserResizeColumns="True"
+                  SelectionChanged="MoviesList_SelectionChanged"
+                  SelectedItem="{Binding SelectedMovie, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Kategoria" Binding="{Binding Category, Converter={StaticResource EnumDescriptionConverter}}"/>
+                <DataGridTextColumn Header="Ocena" Binding="{Binding Rating}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+
+        <ScrollViewer Width="600"
+                          Grid.Column="1">
+
+
+            <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Left"
+                                CanVerticallyScroll="True">
+
+                <WrapPanel VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Margin="15 10 15 5"
+                           Grid.Row="0">
+
+                    <Label Content="Tryb edycji"
+                           VerticalAlignment="Center"/>
+
+                    <controls:ToggleSwitch Name="EditModeTSW"
+                                               OnContent=""
+                                               OffContent=""
+                                               Toggled="EditMode_Toggled"/>
+
+                    <Border BorderBrush="red"
+                            Width="152"
+                            Height="42"
+                            BorderThickness="2"
+                            Margin="15"
+                            CornerRadius="3">
+                        
+                        <Button Width="150"
+                                Height="40"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Content="Usuń film"
+                                Background="MistyRose"
+                                IsEnabled="{Binding IsMovieSelected, Converter={StaticResource BoolToIsEnabledConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                Click="DeleteMovieButton_Click"/>
+                    </Border>
+                    
+                </WrapPanel>
+
+                <StackPanel HorizontalAlignment="Left"
+                               Margin="15 5 15 15">
+
+                    <TextBlock Foreground="Black"
+                                       FontWeight="Bold"
+                                       FontSize="24"
+                                       HorizontalAlignment="Left"
+                                       Text="Tytuł"/>
+
+                    <WrapPanel>
+                        <Label FontSize="20"
+                                   Content="{Binding SelectedMovie.Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
+
+                        <WrapPanel Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
+
+                            <TextBox Name="TitleTB"
+                                     Width="450"
+                                     Height="30"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     HorizontalAlignment="Left"
+                                     controls:TextBoxHelper.ClearTextButton="True"
+                                     controls:TextBoxHelper.Watermark="Tytuł"
+                                     Text="{Binding MovieTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <fa:FontAwesome Icon="ExclamationCircle"
+                                            VerticalAlignment="Center"
+                                            Margin="8 0"
+                                            ToolTip="To pole nie może być puste!"
+                                            Foreground="Red"
+                                            Visibility="{Binding IsTitleEmpty, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </WrapPanel>
+
+                    </WrapPanel>
+
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left"
+                                Margin="15 5 15 15">
+
+                    <TextBlock Foreground="Black"
+                                   FontWeight="Bold"
+                                   FontSize="24"
+                                   HorizontalAlignment="Left"
+                                   Text="Kategoria"/>
+
+                    <WrapPanel>
+                        <Label FontSize="20"
+                                   Content="{Binding SelectedMovie.Category, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
+
+                        <WrapPanel Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
+
+                            <ComboBox Name="CategoryCB"
+                                          Width="200"
+                                          ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"
+                                          SelectedItem="{Binding MovieCategory, Mode=TwoWay}">
+                            </ComboBox>
+
+                            <fa:FontAwesome Icon="ExclamationCircle"
+                                                VerticalAlignment="Center"
+                                                Margin="8 0"
+                                                ToolTip="To pole nie może być puste!"
+                                                Foreground="Red"
+                                                Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </WrapPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left"
+                                Margin="15 5 15 15">
+
+                    <TextBlock Foreground="Black"
+                                   FontWeight="Bold"
+                                   FontSize="24"
+                                   HorizontalAlignment="Left"
+                                   Text="Opis"/>
+
+                    <WrapPanel>
+                        <Label FontSize="13"
+                                   Content="{Binding SelectedMovie.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
+
+                        <TextBox Width="450"
+                                     Height="150"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     HorizontalAlignment="Left"
+                                     controls:TextBoxHelper.ClearTextButton="True"
+                                     controls:TextBoxHelper.Watermark="Opis"
+                                     TextWrapping="Wrap"
+                                     VerticalContentAlignment="Top"
+                                     Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding SelectedMovie.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left"
+                                Margin="15 5 15 15">
+
+                    <TextBlock Foreground="Black"
+                                   FontWeight="Bold"
+                                   FontSize="24"
+                                   HorizontalAlignment="Left"
+                                   Text="Recenzja"/>
+
+                    <WrapPanel>
+                        <Label FontSize="13"
+                                   Content="{Binding SelectedMovie.Review, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, ConverterParameter=reversed}"/>
+
+                        <TextBox Width="450"
+                                     Height="150"
+                                     FontSize="13"
+                                     FontWeight="Medium"
+                                     HorizontalAlignment="Left"
+                                     controls:TextBoxHelper.ClearTextButton="True"
+                                     controls:TextBoxHelper.Watermark="Opis"
+                                     TextWrapping="Wrap"
+                                     VerticalContentAlignment="Top"
+                                     Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding SelectedMovie.Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Left"
+                            Margin="15 5 15 15">
+
+                    <TextBlock Foreground="Black"
+                               FontWeight="Bold"
+                               FontSize="24"
+                               HorizontalAlignment="Left"
+                               Text="Ocena"/>
+
+                    <ctrl:RatingControl x:Name="RatingControl"
+                                        MouseLeftButtonUp="RatingControl_MouseLeftButtonUp"/>
+
+                </StackPanel>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>
