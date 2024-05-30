@@ -19,6 +19,8 @@ namespace Notatnik_Kinomana_v2.Helpers
         Dokument,
         [Description("Film dramatyczny")]
         Dramat,
+        [Description("Film familijny")]
+        Familijny,
         [Description("Film fantasy")]
         Fantasy,
         [Description("horror")]
