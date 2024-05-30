@@ -15,6 +15,32 @@ namespace Notatnik_Kinomana_v2.ViewModels
 {
     public class MainWindowVM : INotifyPropertyChanged
     {
+        public AllMovies AllMovies
+        {
+            get
+            {
+                return _allMovies;
+            }
+            set
+            {
+                _allMovies = value;
+            }
+        }
+        private AllMovies _allMovies;
+
+        public AllPremieres AllPremieres
+        {
+            get
+            {
+                return _allPremieres;
+            }
+            set
+            {
+                _allPremieres = value;
+            }
+        }
+        private AllPremieres _allPremieres;
+
         public AddMoviePageVM AddMoviePageVM
         {
             get
@@ -47,24 +73,30 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private BrowseMoviesPageVM _browseMoviePageVM;
 
-        public AllMovies AllMovies
+        public PlanPremierePageVM PlanPremierePageVM
         {
             get
             {
-                return _allMovies;
+                return _planPremierePageVM;
             }
             set
             {
-                _allMovies = value;
+                _planPremierePageVM = value;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(_planPremierePageVM));
             }
         }
-        private AllMovies _allMovies;
+        private PlanPremierePageVM _planPremierePageVM;
+
 
         public MainWindowVM()
         {
             AllMovies = new AllMovies();
+            AllPremieres = new AllPremieres();
             AddMoviePageVM = new AddMoviePageVM(AllMovies.Movies);
             BrowseMoviesPageVM = new BrowseMoviesPageVM(AllMovies);
+            PlanPremierePageVM = new PlanPremierePageVM(AllPremieres);
             
         }
 

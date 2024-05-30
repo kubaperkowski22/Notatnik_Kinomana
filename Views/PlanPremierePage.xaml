@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="Notatnik_Kinomana_v2.Views.PlanPremierePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Notatnik_Kinomana_v2.Views"
+      xmlns:conv="clr-namespace:Notatnik_Kinomana_v2.Helpers.Converters"
+      xmlns:helpers="clr-namespace:Notatnik_Kinomana_v2.Helpers"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:ctrl="clr-namespace:Notatnik_Kinomana_v2.Controls"
+      mc:Ignorable="d"
+      xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels.ViewsVM"
+      d:DataContext="{d:DesignInstance Type=vm:PlanPremierePageVM}"
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="MovieCategoryEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="helpers:EMovieCategory" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="MoviesDataGrid"
+                  ItemsSource="{Binding Premieres}"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                  VirtualizingPanel.VirtualizationMode="Standard"
+                  ScrollViewer.IsDeferredScrollingEnabled="True"
+                  VerticalAlignment="Stretch"
+                  AutoGenerateColumns="False"
+                  RowHeight="15"
+                  Width="auto"
+                  IsReadOnly="False"
+                  CanUserResizeColumns="True"
+                  SelectedItem="{Binding SelectedPremiere, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Kategoria" Binding="{Binding Category, Converter={StaticResource EnumDescriptionConverter}}"/>
+                <DataGridTextColumn Header="Data premiery" Binding="{Binding PremiereDate}"/>
+                <DataGridTextColumn Header="Obejrzany" Binding="{Binding AlreadyWatched}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <GridSplitter Grid.Column="1"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Width="3"/>
+
+        <ScrollViewer Grid.Column="2">
+            <StackPanel>
+                <controls:MetroHeader Foreground="Black"
+                  FontWeight="Bold"
+                  FontSize="24"
+                  Margin="15">
+                    <controls:MetroHeader.Header>
+                        <TextBlock Text="Tytuł"/>
+                    </controls:MetroHeader.Header>
+
+                    <TextBox Name="TitleTB"
+                         Width="350"
+                         Height="30"
+                         FontSize="13"
+                         FontWeight="Medium"
+                         HorizontalAlignment="Left"
+                         controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.Watermark="Tytuł"/>
+
+                </controls:MetroHeader>
+
+                <controls:MetroHeader Foreground="Black"
+                    FontWeight="Bold"
+                    FontSize="24"
+                    Margin="15">
+                    <controls:MetroHeader.Header>
+                        <TextBlock Text="Kategoria"/>
+                    </controls:MetroHeader.Header>
+
+                    <ComboBox Name="CategoryCB"
+                          Width="200"
+                          HorizontalAlignment="Left"
+                          ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"/>
+
+                </controls:MetroHeader>
+
+                <controls:MetroHeader Foreground="Black"
+                                  FontWeight="Bold"
+                                  FontSize="24"
+                                  Margin="15">
+                    <controls:MetroHeader.Header>
+                        <TextBlock Text="Data premiery"/>
+                    </controls:MetroHeader.Header>
+
+                    <DatePicker Name="PremiereDatePicker"
+                          Width="200"
+                          HorizontalAlignment="Left"/>
+
+                </controls:MetroHeader>
+
+                <controls:MetroHeader Foreground="Black"
+                      FontWeight="Bold"
+                      FontSize="24"
+                      Margin="15">
+                    <controls:MetroHeader.Header>
+                        <TextBlock Text="Obejrzany"/>
+                    </controls:MetroHeader.Header>
+
+                    <controls:ToggleSwitch Name="AlreadyWatchedTSW"
+                       OnContent="Obejrzany"
+                       OffContent="Nieobejrzany"/>
+
+                </controls:MetroHeader>
+
+                <Border BorderBrush="Lime"
+                    Width="152"
+                    Height="42"
+                    BorderThickness="2"
+                    Margin="15 30"
+                    CornerRadius="3"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left">
+
+                    <Button Width="150"
+                        Height="40"
+                        Content="Zapisz premiere"
+                        Background="LightGreen"
+                        Click="SavePremiere_Button_Click"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+    </Grid>
+    
+</UserControl>

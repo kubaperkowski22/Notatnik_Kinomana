@@ -54,10 +54,12 @@ namespace Notatnik_Kinomana_v2
                         this.HamburgerMenuControl.IsPaneOpen = false;
                         break;
                     case "PlanPremiereView":
-
+                        HamburgerMenuControl.Content = new Views.PlanPremierePage(ViewModel.AllPremieres);
+                        this.HamburgerMenuControl.IsPaneOpen = false;
                         break;
                     case "StatisticsView":
 
+                        this.HamburgerMenuControl.IsPaneOpen = false;
                         break;
                     default:
                         return;
@@ -71,11 +73,6 @@ namespace Notatnik_Kinomana_v2
             this.HamburgerMenuControl.Content = e.ClickedItem;
             // close the pane
             this.HamburgerMenuControl.IsPaneOpen = false;
-        }
-
-        private void SaveMovieButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
