@@ -1,0 +1,70 @@
+# Wyklucz pliki specyficzne dla systemów operacyjnych
+.DS_Store
+Thumbs.db
+
+# Wyklucz katalogi buildów
+bin/
+obj/
+
+# Wyklucz dane u¿ytkownika
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Wyklucz dane generowane przez IDE
+.vscode/
+.idea/
+*.csproj.user
+
+# Wyklucz dane dotycz¹ce systemów kontroli wersji zewnêtrznych
+.ionide/
+.ionide.json
+.gitconfig
+
+# Wyklucz pliki logów i debugowania
+*.log
+*.tlog
+*.vlog
+*.ide.log
+*.pidb
+*.sln.cache
+
+# Wyklucz pliki publikacji i wdro¿enia
+.publish/
+*.publishsettings
+*.publish.xml
+
+# Wyklucz pliki tymczasowe i dane sesji
+*.tmp
+*.temp
+*.session
+
+# Wyklucz dane testowe
+TestResults/
+*.TestResult.xml
+
+# Wyklucz pliki konfiguracji serwera
+.vs/
+*.config
+*.connectionstrings.config
+
+# Wyklucz dane prywatne i wra¿liwe
+*.pfx
+*.cer
+*.snk
+
+# Wyklucz pliki konfiguracji u¿ytkownika
+*.ide.workspace
+*.vscode/
+
+# Wyklucz pliki zwi¹zane z MahApps.Metro (nie ma specyficznych wykluczeñ, wiêc korzystamy z ogólnych regu³ .NET)
+
+# Wyklucz pliki NuGet
+*.nupkg
+.nuget/
+packages/
+
+# Wyklucz folder lokalnych pakietów NuGet
+Packages/
