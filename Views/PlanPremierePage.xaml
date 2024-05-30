@@ -23,6 +23,7 @@
         </ObjectDataProvider>
         <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:BoolToYesNoConverter x:Key="BoolToYesNoConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -50,7 +51,7 @@
                 <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Kategoria" Binding="{Binding Category, Converter={StaticResource EnumDescriptionConverter}}"/>
                 <DataGridTextColumn Header="Data premiery" Binding="{Binding PremiereDate}"/>
-                <DataGridTextColumn Header="Obejrzany" Binding="{Binding AlreadyWatched}"/>
+                <DataGridTextColumn Header="Obejrzany" Binding="{Binding AlreadyWatched, Converter={StaticResource BoolToYesNoConverter}}"/>
             </DataGrid.Columns>
 
         </DataGrid>
