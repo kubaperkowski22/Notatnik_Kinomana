@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,18 +31,59 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         }
         private ObservableCollection<Movie> _movies;
 
-        public int None { get; set; } = 0;
-        public int Action { get; set; } = 0;
-        public int Animation { get; set; } = 0;
-        public int Document { get; set; } = 0;
-        public int Drama { get; set; } = 0;
-        public int Family { get; set; } = 0;
-        public int Fantasy { get; set; } = 0;
-        public int Horror { get; set; } = 0;
-        public int Comedy { get; set; } = 0;
-        public int Romance { get; set; } = 0;
-        public int ScienceFiction { get; set; } = 0;
-        public int Thriller { get; set; } = 0;
+        public int AddedMovies
+        {
+            get => Movies.Count;
+        }
+        public int AddedPremieres
+        {
+            get => Premieres.Count;
+        }
+        public float AverageRating
+        {
+            get
+            {
+                _averageRating = 0;
+                foreach (var movie in Movies)
+                    _averageRating += (float)movie.Rating;
+
+                return _averageRating / Movies.Count;
+            }
+        }
+        private float _averageRating;
+
+        public int WatchedMovies
+        {
+            get
+            {
+                _watchedMovies = 0;
+                foreach (var premiere in Premieres)
+                    if(premiere.AlreadyWatched) _watchedMovies++;
+
+                return _watchedMovies;
+            }
+        }
+        public int UnwatchedMovies
+        {
+            get
+            {
+                return Premieres.Count - WatchedMovies;
+            }
+        }
+        private int _watchedMovies;
+        
+        public string MostPopularCategory
+        {
+            get
+            {
+                //UpdateMoviesNumberInEachCategory();
+
+                return CompareValues();
+            }
+        }
+
+        private int[] CategoriesNumber = new int[_categoryNum] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 
         private const int _categoryNum = 12;
 
@@ -49,7 +91,6 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         {
             Movies = allMovies.Movies;
             Premieres = allPremieres.Premieres;
-            UpdateMoviesNumberInEachCategory();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -58,50 +99,49 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
         private void UpdateMoviesNumberInEachCategory()
         {
             SetCategoriesNumToZero();
 
             foreach (var movie in Movies)
             {
-                switch((int)movie.Category)
+                switch ((int)movie.Category)
                 {
                     case 0:
-                        None++;
+                        CategoriesNumber[0]++;
                         break;
                     case 1:
-                        Action++;
+                        CategoriesNumber[1]++;
                         break;
                     case 2:
-                        Animation++;
+                        CategoriesNumber[2]++;
                         break;
                     case 3:
-                        Document++;
+                        CategoriesNumber[3]++;
                         break;
                     case 4:
-                        Drama++;
+                        CategoriesNumber[4]++;
                         break;
                     case 5:
-                        Family++;
+                        CategoriesNumber[5]++;
                         break;
                     case 6:
-                        Fantasy++;
+                        CategoriesNumber[6]++;
                         break;
                     case 7:
-                        Horror++;
+                        CategoriesNumber[7]++;
                         break;
                     case 8:
-                        Comedy++;
+                        CategoriesNumber[8]++;
                         break;
                     case 9:
-                        Romance++;
+                        CategoriesNumber[9]++;
                         break;
                     case 10:
-                        ScienceFiction++;
+                        CategoriesNumber[10]++;
                         break;
                     case 11:
-                        Thriller++;
+                        CategoriesNumber[11]++;
                         break;
                 }
 
@@ -110,18 +150,33 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         }
         private void SetCategoriesNumToZero()
         {
-            None = 0;
-            Action = 0;
-            Animation = 0;
-            Document = 0;
-            Drama = 0;
-            Family = 0;
-            Fantasy = 0;
-            Horror = 0;
-            Comedy = 0;
-            Romance = 0;
-            ScienceFiction = 0;
-            Thriller = 0;
+            for(int i=0; i< _categoryNum; ++i)
+                CategoriesNumber[i] = 0;
         }
+
+        private string CompareValues()
+        {
+            int maxValue = 0;
+            int index = 0;
+
+            for(int i=0; i<_categoryNum; ++i)
+            {
+                if (CategoriesNumber[i] > maxValue)
+                {
+                    maxValue = CategoriesNumber[i];
+                    index = i;
+                }
+            }
+            // return AddCategoriesNamesToResult(maxValue);
+            var movie = Movies.FirstOrDefault(x => (int)x.Category == index);
+            return movie.Category.ToString();
+        }
+        private void AddCategoriesNamesToResult(int maxValue)
+        {
+            string result = string.Empty;
+
+
+        }
+
     }
 }
