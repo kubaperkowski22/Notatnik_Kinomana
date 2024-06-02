@@ -54,6 +54,17 @@
                 <DataGridTextColumn Header="Obejrzany" Binding="{Binding AlreadyWatched, Converter={StaticResource BoolToYesNoConverter}}"/>
             </DataGrid.Columns>
 
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Usuń premierę"
+                              Click="DeletePremiere_MenuItem_Click">
+                        <MenuItem.Icon>
+                            <fa:FontAwesome Icon="Trash"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
         </DataGrid>
 
         <GridSplitter Grid.Column="1"
@@ -61,55 +72,83 @@
               HorizontalAlignment="Stretch"
               Width="3"/>
 
-        <ScrollViewer Grid.Column="2">
+        <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <controls:MetroHeader Foreground="Black"
-                  FontWeight="Bold"
-                  FontSize="24"
-                  Margin="15">
-                    <controls:MetroHeader.Header>
-                        <TextBlock Text="Tytuł"/>
-                    </controls:MetroHeader.Header>
+                <WrapPanel>
+                    <controls:MetroHeader Foreground="Black"
+                                          FontWeight="Bold"
+                                          FontSize="24"
+                                          Margin="15 15 5 15">
+                        <controls:MetroHeader.Header>
+                            <TextBlock Text="Tytuł"/>
+                        </controls:MetroHeader.Header>
 
-                    <TextBox Name="TitleTB"
-                         Width="350"
-                         Height="30"
-                         FontSize="13"
-                         FontWeight="Medium"
-                         HorizontalAlignment="Left"
-                         controls:TextBoxHelper.ClearTextButton="True"
-                         controls:TextBoxHelper.Watermark="Tytuł"/>
+                        <TextBox Name="TitleTB"
+                                 Width="350"
+                                 Height="30"
+                                 FontSize="13"
+                                 FontWeight="Medium"
+                                 HorizontalAlignment="Left"
+                                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 controls:TextBoxHelper.ClearTextButton="True"
+                                 controls:TextBoxHelper.Watermark="Tytuł"/>
 
-                </controls:MetroHeader>
+                    </controls:MetroHeader>
 
-                <controls:MetroHeader Foreground="Black"
-                    FontWeight="Bold"
-                    FontSize="24"
-                    Margin="15">
-                    <controls:MetroHeader.Header>
-                        <TextBlock Text="Kategoria"/>
-                    </controls:MetroHeader.Header>
+                    <fa:FontAwesome Icon="ExclamationCircle"
+                                    VerticalAlignment="Bottom"
+                                    Margin="3 20"
+                                    FontSize="20"
+                                    ToolTip="To pole nie może być puste!"
+                                    Foreground="Red"
+                                    Visibility="{Binding IsTitleEmpty, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <ComboBox Name="CategoryCB"
-                          Width="200"
-                          HorizontalAlignment="Left"
-                          ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"/>
+                </WrapPanel>
 
-                </controls:MetroHeader>
+
+                <WrapPanel>
+                    <controls:MetroHeader Foreground="Black"
+                                          FontWeight="Bold"
+                                          FontSize="24"
+                                          Margin="15 15 5 15">
+                            <controls:MetroHeader.Header>
+                                <TextBlock Text="Kategoria"/>
+                            </controls:MetroHeader.Header>
+
+                        <ComboBox Name="CategoryCB"
+                                  Width="200"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding Category}"
+                                  ItemsSource="{Binding Source={StaticResource MovieCategoryEnum}}"/>
+
+                    </controls:MetroHeader>
+
+                    <fa:FontAwesome Icon="ExclamationCircle"
+                                    VerticalAlignment="Bottom"
+                                    Margin="3 20"
+                                    FontSize="20"
+                                    ToolTip="To pole nie może być puste!"
+                                    Foreground="Red"
+                                    Visibility="{Binding IsCategorySelected, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
 
                 <controls:MetroHeader Foreground="Black"
                                   FontWeight="Bold"
                                   FontSize="24"
-                                  Margin="15">
+                                  Margin="15 15 5 15">
                     <controls:MetroHeader.Header>
                         <TextBlock Text="Data premiery"/>
                     </controls:MetroHeader.Header>
 
                     <DatePicker Name="PremiereDatePicker"
-                          Width="200"
-                          HorizontalAlignment="Left"/>
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    DisplayDate="{x:Static sys:DateTime.Today}"
+                                    SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 </controls:MetroHeader>
+
 
                 <controls:MetroHeader Foreground="Black"
                       FontWeight="Bold"
@@ -120,8 +159,9 @@
                     </controls:MetroHeader.Header>
 
                     <controls:ToggleSwitch Name="AlreadyWatchedTSW"
-                       OnContent="Obejrzany"
-                       OffContent="Nieobejrzany"/>
+                                           IsOn="{Binding IsAlreadySeen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                           OnContent="Obejrzany"
+                                           OffContent="Nieobejrzany"/>
 
                 </controls:MetroHeader>
 
@@ -138,7 +178,8 @@
                         Height="40"
                         Content="Zapisz premiere"
                         Background="LightGreen"
-                        Click="SavePremiere_Button_Click"/>
+                        Click="SavePremiere_Button_Click"
+                        IsEnabled="{Binding IsSaveButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                 </Border>
 
             </StackPanel>

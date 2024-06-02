@@ -69,6 +69,17 @@
                     <DataGridTextColumn Header="Ocena" Binding="{Binding Rating}"/>
                 </DataGrid.Columns>
 
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Usuń premierę"
+                                  Click="DeleteMovieButton_Click">
+                            <MenuItem.Icon>
+                                <fa:FontAwesome Icon="Trash"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
             </DataGrid>
         </StackPanel>
 
@@ -78,7 +89,9 @@
                       Width="3"/>
 
         <ScrollViewer Width="auto"
-                      Grid.Column="2">
+                      Grid.Column="2"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
 
 
             <StackPanel Orientation="Vertical"

@@ -43,22 +43,22 @@ namespace Notatnik_Kinomana_v2.Views
             ViewModel = new PlanPremierePageVM(premieres);
             this.DataContext = ViewModel;
             CategoryCB.SelectedItem = EMovieCategory.Brak;
+            PremiereDatePicker.DisplayDate = DateTime.Today;
         }
 
         private void SavePremiere_Button_Click(object sender, RoutedEventArgs e)
         {
-            string title = TitleTB.Text;
-            EMovieCategory category = (EMovieCategory)CategoryCB.SelectedItem;
-            DateTime date = (DateTime)PremiereDatePicker.SelectedDate;
-            bool watched = AlreadyWatchedTSW.IsOn;
+            ViewModel.AddPremiere();
 
             TitleTB.Clear();
             CategoryCB.SelectedIndex = 0;
-            PremiereDatePicker.SelectedDate = DateTime.Now.Date;
+            PremiereDatePicker.DisplayDate = DateTime.Today;
             AlreadyWatchedTSW.IsOn = false;
+        }
 
-
-            ViewModel.AddPremiere(title, category, date, watched);
+        private void DeletePremiere_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.DeletePremiere();
         }
     }
 }

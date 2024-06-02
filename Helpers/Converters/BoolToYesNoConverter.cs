@@ -17,7 +17,7 @@ namespace Notatnik_Kinomana_v2.Helpers.Converters
                 return boolValue ? "Tak" : "Nie";
             }
             return "Nie";
-        }
+        }  
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
