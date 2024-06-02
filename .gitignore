@@ -16,6 +16,7 @@ vs/
 
 # Wyklucz dane generowane przez IDE
 .vscode/
+.vs/
 .idea/
 *.csproj.user
 
