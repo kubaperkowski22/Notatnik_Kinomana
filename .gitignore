@@ -5,6 +5,7 @@ Thumbs.db
 # Wyklucz katalogi buildów
 bin/
 obj/
+vs/
 
 # Wyklucz dane u¿ytkownika
 *.user
