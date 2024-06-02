@@ -47,6 +47,8 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
                 foreach (var movie in Movies)
                     _averageRating += (float)movie.Rating;
 
+                if(Movies == null || Movies.Count == 0)
+                    return 0;
                 return _averageRating / Movies.Count;
             }
         }
@@ -76,8 +78,6 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
         {
             get
             {
-                //UpdateMoviesNumberInEachCategory();
-
                 return CompareValues();
             }
         }
@@ -167,15 +167,12 @@ namespace Notatnik_Kinomana_v2.ViewModels.ViewsVM
                     index = i;
                 }
             }
-            // return AddCategoriesNamesToResult(maxValue);
+
             var movie = Movies.FirstOrDefault(x => (int)x.Category == index);
-            return movie.Category.ToString();
-        }
-        private void AddCategoriesNamesToResult(int maxValue)
-        {
-            string result = string.Empty;
 
-
+            if (movie != null)
+                return movie.Category.ToString();
+            else return "-----";
         }
 
     }
