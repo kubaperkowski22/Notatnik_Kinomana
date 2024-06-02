@@ -58,7 +58,7 @@ namespace Notatnik_Kinomana_v2
                         this.HamburgerMenuControl.IsPaneOpen = false;
                         break;
                     case "StatisticsView":
-
+                        HamburgerMenuControl.Content = new Views.StatisticsPage(ViewModel.AllMovies, ViewModel.AllPremieres);
                         this.HamburgerMenuControl.IsPaneOpen = false;
                         break;
                     default:

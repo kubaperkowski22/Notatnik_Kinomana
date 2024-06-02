@@ -10,28 +10,28 @@ namespace Notatnik_Kinomana_v2.Helpers
     public enum EMovieCategory
     {
         [Description("Brak")]
-        Brak,
+        Brak = 0,
         [Description("Film akcji")]
-        Akcja,
+        Akcja = 1,
         [Description("Film animowany")]
-        Animacja,
+        Animacja = 2,
         [Description("Film dokumentalny")]
-        Dokument,
+        Dokument = 3,
         [Description("Film dramatyczny")]
-        Dramat,
+        Dramat = 4,
         [Description("Film familijny")]
-        Familijny,
+        Familijny = 5,
         [Description("Film fantasy")]
-        Fantasy,
+        Fantasy = 6,
         [Description("horror")]
-        Horror,
+        Horror = 7,
         [Description("Film komediowy")]
-        Komedia,
+        Komedia = 8,
         [Description("Film romantyczny")]
-        Romans,
+        Romans = 9,
         [Description("Film Science-Fiction")]
-        ScienceFiction,
+        ScienceFiction = 10,
         [Description("Thriller")]
-        Thriller,
+        Thriller = 11,
     }
 }

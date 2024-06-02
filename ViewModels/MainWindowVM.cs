@@ -84,10 +84,23 @@ namespace Notatnik_Kinomana_v2.ViewModels
                 _planPremierePageVM = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(_planPremierePageVM));
+                OnPropertyChanged(nameof(PlanPremierePageVM));
             }
         }
         private PlanPremierePageVM _planPremierePageVM;
+
+        public StatisticsPageVM StatisticsPageVM
+        {
+            get
+            {
+                return _statisticsPageVM;
+            }
+            set
+            {
+                _statisticsPageVM = value;
+            }
+        }
+        private StatisticsPageVM _statisticsPageVM;
 
 
         public MainWindowVM()
@@ -97,7 +110,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
             AddMoviePageVM = new AddMoviePageVM(AllMovies.Movies);
             BrowseMoviesPageVM = new BrowseMoviesPageVM(AllMovies);
             PlanPremierePageVM = new PlanPremierePageVM(AllPremieres);
-            
+            StatisticsPageVM = new StatisticsPageVM(AllMovies, AllPremieres);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -19,6 +19,9 @@
     <Compile Update="Views\PlanPremierePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\StatisticsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\RatingControl.xaml">
@@ -34,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\PlanPremierePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StatisticsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
