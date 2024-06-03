@@ -69,9 +69,8 @@ namespace Notatnik_Kinomana_v2
 
         private void HamburgerMenuControl_OptionsItemClick(object sender, ItemClickEventArgs e)
         {
-            // set the content
-            this.HamburgerMenuControl.Content = e.ClickedItem;
-            // close the pane
+            HamburgerMenuControl.Content = new Views.SettingsPage(ViewModel);
+
             this.HamburgerMenuControl.IsPaneOpen = false;
         }
     }

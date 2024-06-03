@@ -1,4 +1,5 @@
-﻿using Notatnik_Kinomana_v2.Helpers;
+﻿using Newtonsoft.Json;
+using Notatnik_Kinomana_v2.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace Notatnik_Kinomana_v2.Models
 {
     public class Movie : INotifyPropertyChanged
     {
+        [JsonProperty("Title")]
         public string Title
         {
             get
@@ -27,6 +29,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private string _title;
 
+        [JsonProperty("Category")]
         public EMovieCategory Category
         {
             get
@@ -42,7 +45,8 @@ namespace Notatnik_Kinomana_v2.Models
             }
         }
         private EMovieCategory _category;
-
+        
+        [JsonProperty("Description")]
         public string? Description
         {
             get
@@ -59,6 +63,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private string _description;
 
+        [JsonProperty("Review")]
         public string? Review
         {
             get
@@ -75,6 +80,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private string _review;
 
+        [JsonProperty("Rating")]
         public int? Rating
         {
             get

@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\Ja_i_Adi2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Icons\popcorntime_94336.ico" />
   </ItemGroup>
 
@@ -22,6 +26,10 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\Ja_i_Adi2.jpg" />
   </ItemGroup>
 
 </Project>

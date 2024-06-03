@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Notatnik_Kinomana_v2.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Notatnik_Kinomana_v2.Views"
+      xmlns:conv="clr-namespace:Notatnik_Kinomana_v2.Helpers.Converters"
+      xmlns:helpers="clr-namespace:Notatnik_Kinomana_v2.Helpers"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:ctrl="clr-namespace:Notatnik_Kinomana_v2.Controls"
+      mc:Ignorable="d"
+      xmlns:vm="clr-namespace:Notatnik_Kinomana_v2.ViewModels.ViewsVM"
+      d:DataContext="{d:DesignInstance Type=vm:SettingsPageVM}"
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid>
+            <TabControl>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="File" Margin="3"/>
+                            <TextBlock Text="Plik" Foreground="Blue" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <Button Name="SaveDataButton"
+                                Content="Zapisz dane"
+                                ToolTip="Zapisz wprowadzone dane do pliku, który potem można załadować."
+                                Margin="15"
+                                Width="450"
+                                Click="SaveDataButton_Click"/>
+                        
+                        <Button Name="OpenDataButton"
+                                Content="Otwórz dane"
+                                ToolTip="Otwórz dane z pliku i załaduj do programu."
+                                Margin="15"
+                                Width="450"
+                                Click="OpenDataButton_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:FontAwesome Icon="InfoCircle" Margin="3" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="O autorach" Foreground="Red" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <Image Source="/Icons/Ja_i_Adi2.jpg" Margin="10" Width="450"/>
+                        <TextBlock Text="Po lewo Kuba P. a po prawej Adrian R.  :)"
+                                   HorizontalAlignment="Center"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="Blue"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>

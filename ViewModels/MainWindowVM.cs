@@ -1,4 +1,5 @@
-﻿using Notatnik_Kinomana_v2.Models;
+﻿using Newtonsoft.Json;
+using Notatnik_Kinomana_v2.Models;
 using Notatnik_Kinomana_v2.ViewModels.ViewsVM;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
 {
     public class MainWindowVM : INotifyPropertyChanged
     {
+        [JsonProperty("MOVIES")]
         public AllMovies AllMovies
         {
             get
@@ -28,6 +30,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private AllMovies _allMovies;
 
+        [JsonProperty("PREMIERES")]
         public AllPremieres AllPremieres
         {
             get
@@ -41,6 +44,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private AllPremieres _allPremieres;
 
+        [JsonIgnore]
         public AddMoviePageVM AddMoviePageVM
         {
             get
@@ -57,6 +61,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private AddMoviePageVM _addMoviePageVM;
 
+        [JsonIgnore]
         public BrowseMoviesPageVM BrowseMoviesPageVM
         {
             get
@@ -73,6 +78,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private BrowseMoviesPageVM _browseMoviePageVM;
 
+        [JsonIgnore]
         public PlanPremierePageVM PlanPremierePageVM
         {
             get
@@ -89,6 +95,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private PlanPremierePageVM _planPremierePageVM;
 
+        [JsonIgnore]
         public StatisticsPageVM StatisticsPageVM
         {
             get
@@ -102,6 +109,19 @@ namespace Notatnik_Kinomana_v2.ViewModels
         }
         private StatisticsPageVM _statisticsPageVM;
 
+        [JsonIgnore]
+        public SettingsPageVM SettingsPageVM
+        {
+            get
+            {
+                return _settingsPageVM;
+            }
+            set
+            {
+                _settingsPageVM = value;
+            }
+        }
+        private SettingsPageVM _settingsPageVM;
 
         public MainWindowVM()
         {
@@ -111,6 +131,7 @@ namespace Notatnik_Kinomana_v2.ViewModels
             BrowseMoviesPageVM = new BrowseMoviesPageVM(AllMovies);
             PlanPremierePageVM = new PlanPremierePageVM(AllPremieres);
             StatisticsPageVM = new StatisticsPageVM(AllMovies, AllPremieres);
+            SettingsPageVM = new SettingsPageVM(AllMovies, AllPremieres);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

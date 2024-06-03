@@ -1,4 +1,5 @@
-﻿using Notatnik_Kinomana_v2.Helpers;
+﻿using Newtonsoft.Json;
+using Notatnik_Kinomana_v2.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace Notatnik_Kinomana_v2.Models
 {
     public class Premiere : INotifyPropertyChanged
     {
+        [JsonProperty("Title")]
         public string Title
         {
             get
@@ -27,6 +29,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private string _title;
 
+        [JsonProperty("Category")]
         public EMovieCategory Category
         {
             get
@@ -43,6 +46,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private EMovieCategory _category;
 
+        [JsonProperty("Date")]
         public DateTime PremiereDate
         {
             get
@@ -59,6 +63,7 @@ namespace Notatnik_Kinomana_v2.Models
         }
         private DateTime _premiereDate;
 
+        [JsonProperty("Watched")]
         public bool AlreadyWatched
         {
             get
